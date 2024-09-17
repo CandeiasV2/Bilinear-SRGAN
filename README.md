@@ -1,2 +1,17 @@
-# Bilinear-SRGAN
-Bilinear-SRGAN is a modified SRGAN model that enhances image resolution by a factor of three while minimizing artifacts. By combining bilinear interpolation with deep learning, it produces sharper, more detailed images.
+# Introduction
+Image super-resolution aims to enhance low-resolution images into high-resolution ones, with applications ranging from medical imaging to CCTV footage. This project introduces Bilinear-SRGAN, a modified version of the SRGAN model, designed to triple the resolution of images while reducing artifacts and enhancing visual quality. The model blends bilinear interpolation with deep learning, creating a hybrid approach that improves upon traditional techniques.
+
+# Implementation
+Bilinear-SRGAN combines a bilinear interpolation layer with the SRGAN framework. The generator network includes a bilinear interpolation layer that provides an initial upscaling of the image, followed by a deep learning-based refinement process. The final output is a weighted blend of the bilinear interpolation and the SRGAN-generated image, aiming to achieve an optimal balance between initial structure and refined detail. The discriminator network ensures that the generated high-resolution images are realistic by distinguishing between real and fake images.
+
+# Model
+The model architecture consists of two main components: the generator and the discriminator. The generator is responsible for upscaling the input low-resolution images using a series of convolutional layers, batch normalization, and PReLU activation functions. Bilinear-SRGAN adapts the SRGAN model for threefold upscaling by introducing a 2D transposed convolutional layer. A bilinear interpolation layer is also incorporated to guide the initial reconstruction. The discriminator network remains similar to the original SRGAN design, serving as a feedback mechanism to improve the generator's output.
+
+# Dataset
+The model was trained using the "3x Image Super Resolution" dataset from Kaggle, consisting of 4,500 pairs of low-resolution (170x170) and high-resolution (510x510) RGB images. The dataset was split into 3,500 pairs for training and 1,000 for testing. Due to input size requirements and hardware constraints, both the low- and high-resolution images were divided into 25 equal-sized sections for processing. This preprocessing step reduced computational load, allowing the model to be trained effectively on available hardware.
+
+# Results
+Resource constraints led to a downsized version of the model, necessitating the splitting of images into 25 smaller sections. When these sections were recombined into a final high-resolution image, a visible grid-like pattern emerged, along with some color discrepancies. The model was trained on an Intel Core i7-10700K CPU, 32GB RAM, and an NVIDIA GeForce RTX 3060 Ti, with each epoch taking approximately two hours. The model was trained for 27 epochs. Although the Bilinear-SRGAN did not outperform traditional bilinear interpolation in quantitative metrics like PSNR and SSIM, it significantly enhanced the perceptual quality of images. The model produced sharper images with more intricate details compared to the baseline.
+
+# Conclusion
+The Bilinear-SRGAN model introduces a novel approach to image super-resolution by incorporating a bilinear interpolation layer within the SRGAN framework. While it did not surpass the traditional bilinear model in standard evaluation metrics, it demonstrated a clear advantage in perceptual quality. Future work will focus on eliminating the grid pattern, correcting color tones, and refining the model to more accurately represent the original image quality and detail.
